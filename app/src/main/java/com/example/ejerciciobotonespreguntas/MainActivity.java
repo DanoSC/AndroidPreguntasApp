@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+
+    private Button mResButton;
     private TextView mQuestionTextView;
 
     private int mCurrentIndex = 0;
@@ -56,15 +58,39 @@ public class MainActivity extends AppCompatActivity {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 int question = mQuestionBank[mCurrentIndex].getmTextResId();
                 mQuestionTextView.setText(question);
+                updateQuestion();
             }
         });
-        updateQuestion();
+
+
+
+        mResButton = (Button) findViewById(R.id.res_button);
+        mResButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrentIndex != 0){
+                    mCurrentIndex = mCurrentIndex - 1 ;
+                    int question = mQuestionBank[mCurrentIndex].getmTextResId();
+                    mQuestionTextView.setText(question);
+                    updateQuestion();
+                }
+
+            }
+        });
+
 
     }
+
+
+
+
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getmTextResId();
         mQuestionTextView.setText(question);
     }
+
+
+
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].ismAnswerTrue();
         int messageResId = 0;
